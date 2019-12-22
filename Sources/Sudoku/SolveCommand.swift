@@ -1,3 +1,10 @@
+//
+//  SolveCommand.swift
+//  Sudoku
+//
+//  Created by Eneko Alonso on 12/22/19.
+//
+
 import CommandRegistry
 import SudokuKit
 
@@ -26,6 +33,6 @@ final class SolveCommand: Command {
 
     func run(with arguments: ArgumentParser.Result) throws {
         let sudoku = try Sudoku(cells: Self.easy)
-        print(sudoku)
+        print(renderSimple(sudoku: sudoku))
     }
 }

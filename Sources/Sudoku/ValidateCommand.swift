@@ -1,3 +1,10 @@
+//
+//  ValidateCommand.swift
+//  Sudoku
+//
+//  Created by Eneko Alonso on 12/22/19.
+//
+
 import CommandRegistry
 
 class ValidateCommand: Command {
