@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "Rainbow",
+        "repositoryURL": "https://github.com/onevcat/Rainbow",
+        "state": {
+          "branch": null,
+          "revision": "9c52c1952e9b2305d4507cf473392ac2d7c9b155",
+          "version": "3.1.5"
+        }
+      },
+      {
         "package": "llbuild",
         "repositoryURL": "https://github.com/apple/swift-llbuild.git",
         "state": {
@@ -35,6 +44,15 @@
           "branch": null,
           "revision": "9abcc2260438177cecd7cf5185b144d13e74122b",
           "version": "0.5.0"
+        }
+      },
+      {
+        "package": "SwiftyTextTable",
+        "repositoryURL": "https://github.com/scottrhoyt/SwiftyTextTable.git",
+        "state": {
+          "branch": null,
+          "revision": "c6df6cf533d120716bff38f8ff9885e1ce2a4ac3",
+          "version": "0.9.0"
         }
       }
     ]

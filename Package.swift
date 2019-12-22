@@ -9,14 +9,16 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/eneko/CommandRegistry", from: "0.0.0"),
+        .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
+        .package(url: "https://github.com/scottrhoyt/SwiftyTextTable.git", from: "0.5.0")
     ],
     targets: [
         .target(
             name: "Sudoku",
-            dependencies: ["CommandRegistry", "SudokuKit"]),
+            dependencies: ["CommandRegistry", "Rainbow", "SudokuKit"]),
         .target(
             name: "SudokuKit",
-            dependencies: []),
+            dependencies: ["SwiftyTextTable"]),
         .testTarget(
             name: "SudokuTests",
             dependencies: ["Sudoku"]),

@@ -33,6 +33,6 @@ final class SolveCommand: Command {
 
     func run(with arguments: ArgumentParser.Result) throws {
         let sudoku = try Sudoku(cells: Self.easy)
-        print(renderSimple(sudoku: sudoku))
+        print(sudoku.renderSimple())
     }
 }
