@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CommandRegistry",
+        "repositoryURL": "https://github.com/eneko/CommandRegistry",
+        "state": {
+          "branch": null,
+          "revision": "dca1dbf743a0d59430f6e6c0e025d128d1140af2",
+          "version": "0.4.0"
+        }
+      },
+      {
+        "package": "Logger",
+        "repositoryURL": "https://github.com/eneko/Logger.git",
+        "state": {
+          "branch": null,
+          "revision": "146a17c68a442859ec409b2ae1a23d1913d48c5d",
+          "version": "0.0.2"
+        }
+      },
+      {
+        "package": "llbuild",
+        "repositoryURL": "https://github.com/apple/swift-llbuild.git",
+        "state": {
+          "branch": null,
+          "revision": "f73b84bc1525998e5e267f9d830c1411487ac65e",
+          "version": "0.2.0"
+        }
+      },
+      {
+        "package": "SwiftPM",
+        "repositoryURL": "https://github.com/apple/swift-package-manager.git",
+        "state": {
+          "branch": null,
+          "revision": "9abcc2260438177cecd7cf5185b144d13e74122b",
+          "version": "0.5.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
