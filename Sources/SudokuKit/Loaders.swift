@@ -7,7 +7,7 @@
 
 // MARK: Array of Int
 
-extension Sudoku {
+extension SudokuPuzzle {
     public init(cells: [Int]) throws {
         guard cells.count == columns * rows else {
             throw SudokuError.invalidNumberOfCells

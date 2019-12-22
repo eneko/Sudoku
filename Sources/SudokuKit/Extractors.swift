@@ -7,7 +7,7 @@
 
 // MARK: Data extractors
 
-extension Sudoku {
+extension SudokuPuzzle {
     public func column(index: Int) throws -> [String?] {
         guard index >= 0 && index < columns else {
             throw SudokuError.invalidColumn

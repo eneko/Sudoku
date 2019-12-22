@@ -32,7 +32,9 @@ final class SolveCommand: Command {
     }
 
     func run(with arguments: ArgumentParser.Result) throws {
-        let sudoku = try Sudoku(cells: Self.easy)
+        let sudoku = try SudokuPuzzle(cells: Self.easy)
         print(sudoku.renderSimple())
+        let solution = try SudokuSolution(puzzle: sudoku)
+        print(solution.solution)
     }
 }

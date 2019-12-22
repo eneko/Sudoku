@@ -13,7 +13,7 @@ final class ColumnTests: XCTestCase {
     //    0, 4, 0, 5, 0, 2, 0, 0, 0,
 
     func testColumns() throws {
-        let sudoku = try Sudoku(cells: Sudokus.easy)
+        let sudoku = try SudokuPuzzle(cells: Sudokus.easy)
         XCTAssertEqual(try sudoku.column(index: 0), [nil, nil, nil, "4", nil, nil, "3", nil, nil])
         XCTAssertEqual(try sudoku.column(index: 1), [nil, nil, nil, "7", "2", nil, nil, "6", "4"])
         XCTAssertEqual(try sudoku.column(index: 2), [nil, "5", "4", "3", "6", nil, nil, "7", nil])
@@ -26,7 +26,7 @@ final class ColumnTests: XCTestCase {
     }
 
     func testInvalidColumn() throws {
-        let sudoku = try Sudoku(cells: Sudokus.easy)
+        let sudoku = try SudokuPuzzle(cells: Sudokus.easy)
         XCTAssertThrowsError(try sudoku.column(index: -1))
         XCTAssertThrowsError(try sudoku.column(index: 10))
     }

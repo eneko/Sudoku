@@ -1,11 +1,9 @@
 //
-//  File.swift
-//  
+//  Sudokus.swift
+//  SudokuKitTests
 //
 //  Created by Eneko Alonso on 12/22/19.
 //
-
-import Foundation
 
 struct Sudokus {
 

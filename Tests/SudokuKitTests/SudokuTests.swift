@@ -3,7 +3,7 @@ import SudokuKit
 
 final class SudokuTests: XCTestCase {
     func testSudoku() throws {
-        let sudoku = try Sudoku(cells: Sudokus.easy)
+        let sudoku = try SudokuPuzzle(cells: Sudokus.easy)
         XCTAssertEqual(sudoku.cells[3], "2")
     }
 }

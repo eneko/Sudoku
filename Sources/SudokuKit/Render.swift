@@ -7,7 +7,7 @@
 
 import SwiftyTextTable
 
-extension Sudoku {
+extension SudokuPuzzle {
     public func values(empty: String = ".") -> [[String]] {
         return allRows.map { row in
             return row.map { $0 ?? empty }
@@ -21,6 +21,14 @@ extension Sudoku {
     }
 
     public func renderTable(empty: String = ".") -> String {
+        var table = TextTable(columns: (1...9).map { _ in TextTableColumn(header: "") })
+        table.addRows(values: values(empty: empty))
+        return table.render()
+    }
+}
+
+extension Solution {
+    func renderTable(empty: String = ".") -> String {
         var table = TextTable(columns: (1...9).map { _ in TextTableColumn(header: "") })
         table.addRows(values: values(empty: empty))
         return table.render()
