@@ -21,9 +21,6 @@ let package = Package(
             name: "SudokuKit",
             dependencies: ["SwiftyTextTable"]),
         .testTarget(
-            name: "SudokuTests",
-            dependencies: ["Sudoku"]),
-        .testTarget(
             name: "SudokuKitTests",
             dependencies: ["SudokuKit"]),
     ]

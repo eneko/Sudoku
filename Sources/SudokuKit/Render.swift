@@ -29,7 +29,7 @@ extension SudokuPuzzle {
 
 extension SudokuSolution {
     public func values() -> [[String]] {
-        return solution.map { $0.joined() }.partition(inGroupsOf: columns).map(Array.init)
+        return cells.map { $0.joined() }.partition(inGroupsOf: columns).map(Array.init)
     }
 
     public func renderTable() -> String {
