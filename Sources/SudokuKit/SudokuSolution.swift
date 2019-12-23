@@ -43,6 +43,7 @@ public struct SudokuSolution {
         solution[index] = [value]
         try remove(value: value, fromColumnWithCellIndex: index)
         try remove(value: value, fromRowWithCellIndex: index)
+        try remove(value: value, fromSquareWithCellIndex: index)
     }
 
     mutating func remove(value: String, fromColumnWithCellIndex index: Int) throws {
@@ -80,9 +81,9 @@ public struct SudokuSolution {
         return index / rows
     }
 
-    func square(for index: Int) -> (Int, Int) {
-        let squareColumn = (index % columns) % 3
+    func square(for index: Int) -> (squareColumn: Int, squareRow: Int) {
+        let squareColumn = (index % columns) / 3
         let squareRow = (index / rows) / 3
-        return (squareColumn, squareRow)
+        return (squareColumn: squareColumn, squareRow: squareRow)
     }
 }

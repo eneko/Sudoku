@@ -10,12 +10,13 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/eneko/CommandRegistry", from: "0.0.0"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
-        .package(url: "https://github.com/scottrhoyt/SwiftyTextTable.git", from: "0.5.0")
+        .package(url: "https://github.com/scottrhoyt/SwiftyTextTable.git", from: "0.5.0"),
+        .package(url: "https://github.com/apple/swift-package-manager.git", from: "0.1.0"),
     ],
     targets: [
         .target(
             name: "Sudoku",
-            dependencies: ["CommandRegistry", "Rainbow", "SudokuKit"]),
+            dependencies: ["CommandRegistry", "Rainbow", "SudokuKit", "SwiftPM"]),
         .target(
             name: "SudokuKit",
             dependencies: ["SwiftyTextTable"]),

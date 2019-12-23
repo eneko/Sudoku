@@ -6,6 +6,7 @@
 //
 
 import CommandRegistry
+import SPMUtility
 import SudokuKit
 
 final class SolveCommand: Command {
@@ -33,8 +34,8 @@ final class SolveCommand: Command {
 
     func run(with arguments: ArgumentParser.Result) throws {
         let sudoku = try SudokuPuzzle(cells: Self.easy)
-        print(sudoku.renderSimple())
+        print(sudoku.renderTable())
         let solution = try SudokuSolution(puzzle: sudoku)
-        print(solution.solution)
+        print(solution.renderTable())
     }
 }

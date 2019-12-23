@@ -21,16 +21,20 @@ extension SudokuPuzzle {
     }
 
     public func renderTable(empty: String = ".") -> String {
-        var table = TextTable(columns: (1...9).map { _ in TextTableColumn(header: "") })
+        var table = TextTable(columns: (1...columns).map { _ in TextTableColumn(header: "") })
         table.addRows(values: values(empty: empty))
         return table.render()
     }
 }
 
-extension Solution {
-    func renderTable(empty: String = ".") -> String {
-        var table = TextTable(columns: (1...9).map { _ in TextTableColumn(header: "") })
-        table.addRows(values: values(empty: empty))
+extension SudokuSolution {
+    public func values() -> [[String]] {
+        return solution.map { $0.joined() }.partition(inGroupsOf: columns).map(Array.init)
+    }
+
+    public func renderTable() -> String {
+        var table = TextTable(columns: (1...columns).map { _ in TextTableColumn(header: "") })
+        table.addRows(values: values())
         return table.render()
     }
 }

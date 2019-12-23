@@ -22,7 +22,7 @@ extension SudokuPuzzle {
     }
 
     public func row(index: Int) throws -> [String?] {
-        guard index >= 0 && index < columns else {
+        guard index >= 0 && index < rows else {
             throw SudokuError.invalidRow
         }
         let start = index * columns
