@@ -1,17 +1,17 @@
 //
-//  RowSolver.swift
+//  ColumnSolver.swift
 //  SudokuKit
 //
-//  Created by Eneko Alonso on 12/22/19.
+//  Created by Eneko Alonso on 12/23/19.
 //
 
-/// Row Solver logic:
+/// Column Solver logic:
 /// - For each row in the puzzle
 /// - Look for unsolved cells (those with more than one possible value)
 /// - For each unsolved cell
 /// - Determine if any of its values are possible anywhere else in the same row.
 /// - If not, that value would be the solution for this cell
-public final class RowSolver: SudokuSolver {
+public final class ColumnSolver: SudokuSolver {
     var solution: SudokuSolution
 
     public init(solution: SudokuSolution) {
@@ -21,7 +21,7 @@ public final class RowSolver: SudokuSolver {
     public func solve() throws -> SudokuSolution {
         for value in SudokuSolution.validValues {
             if let index = findCellIndex(for: value) {
-                print("RowSolver setting \(value) at index \(index)")
+                print("ColumnSolver setting \(value) at index \(index)")
                 try solution.setCell(value: value, at: index)
             }
         }
@@ -29,20 +29,20 @@ public final class RowSolver: SudokuSolver {
     }
 
     func findCellIndex(for value: String) -> Int? {
-        let rows = solution.cells.split(inGroupsOf: solution.columns)
-        for (rowIndex, row) in rows.enumerated() {
-            if let columnIndex = findColumnIndex(for: value, in: Array(row)) {
+        let columns = solution.cells.transposed().split(inGroupsOf: solution.columns)
+        for (columnIndex, column) in columns.enumerated() {
+            if let rowIndex = findRowIndex(for: value, in: Array(column)) {
                 return rowIndex * solution.columns + columnIndex
             }
         }
         return nil
     }
 
-    func findColumnIndex(for value: String, in row: [[String]]) -> Int? {
-        guard let firstIndex = row.firstIndex(where: { $0.contains(value) && $0.count > 1 }) else {
+    func findRowIndex(for value: String, in column: [[String]]) -> Int? {
+        guard let firstIndex = column.firstIndex(where: { $0.contains(value) && $0.count > 1 }) else {
             return nil
         }
-        let remaining = row.dropFirst(firstIndex + 1)
+        let remaining = column.dropFirst(firstIndex + 1)
         if remaining.contains(where: { $0.contains(value) }) {
             return nil // found more than one candidate
         }

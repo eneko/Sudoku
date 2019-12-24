@@ -47,16 +47,23 @@ final class SolveCommand: Command {
 
     func run(with arguments: ArgumentParser.Result) throws {
         let sudoku = try SudokuPuzzle(cells: Self.medium)
+        print("======================================================".blue)
         print("Loading Sudoku puzzle...")
+        print("======================================================".blue)
         print(sudoku.renderTable())
 
+        print("======================================================".blue)
         print("Setting initial values...")
+        print("======================================================".blue)
         var solution = try SudokuSolution(puzzle: sudoku)
         print(solution.renderTable())
 
+        print("======================================================".blue)
         print("Solving Sudoku puzzle...")
+        print("======================================================".blue)
         while solution.isIncomplete {
             solution = try RowSolver(solution: solution).solve()
+            solution = try ColumnSolver(solution: solution).solve()
         }
         print(solution.renderTable())
     }

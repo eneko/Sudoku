@@ -45,20 +45,21 @@ public struct SudokuSolution {
 
     mutating func setCellsFromPuzzle(puzzle: SudokuPuzzle) throws {
         for index in cellRange {
-            guard let cell = puzzle.cells[index] else {
+            guard let value = puzzle.cells[index] else {
                 continue
             }
-            try setCell(value: cell, at: index)
+            print("Set initial value \(value) at index \(index)")
+            try setCell(value: value, at: index)
         }
     }
 
     mutating func setCell(value: String, at index: Int) throws {
-        print("Set value \(value) at index \(index) [\(column(for: index)),\(row(for: index))]")
+//        print("BEGIN Set value \(value) at index \(index) [\(column(for: index)),\(row(for: index))]")
         cells[index] = [value]
         try remove(value: value, fromColumnWithCellIndex: index)
         try remove(value: value, fromRowWithCellIndex: index)
         try remove(value: value, fromSquareWithCellIndex: index)
-//        print(renderTable())
+        print(renderTable(highlight: index))
 //        print("END Set value \(value) at index \(index) [\(column(for: index)),\(row(for: index))]")
     }
 
@@ -92,7 +93,7 @@ public struct SudokuSolution {
         if cells[index].count == 1 {
             // Recursively remove candidates when only one value is left
             let value = cells[index][0]
-            print("Found confirmed cell with value \(value) at index \(index)", cells[index])
+            print("Set confirmed cell with value \(value) at index \(index)", cells[index])
             try setCell(value: value, at: index)
         }
     }

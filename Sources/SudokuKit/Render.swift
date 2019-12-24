@@ -6,6 +6,7 @@
 //
 
 import SwiftyTextTable
+import Rainbow
 
 extension SudokuPuzzle {
     public func values(empty: String = ".") -> [[String]] {
@@ -28,13 +29,27 @@ extension SudokuPuzzle {
 }
 
 extension SudokuSolution {
-    public func values() -> [[String]] {
-        return cells.map { $0.joined() }.partition(inGroupsOf: columns).map(Array.init)
+    public func values(highlight index: Int? = nil) -> [[String]] {
+        let values = cells.enumerated().map { tuple -> String in
+            let (cellIndex, item) = tuple
+            let value = item.joined()
+            guard let index = index else {
+                return value
+            }
+            if cellIndex == index {
+                return value.green
+            }
+            if cellIndex % columns == index % columns || cellIndex / columns == index / columns {
+                return value.cyan
+            }
+            return value
+        }
+        return values.split(inGroupsOf: columns).map(Array.init)
     }
 
-    public func renderTable() -> String {
+    public func renderTable(highlight index: Int? = nil) -> String {
         var table = TextTable(columns: (1...columns).map { _ in TextTableColumn(header: "") })
-        table.addRows(values: values())
+        table.addRows(values: values(highlight: index))
         return table.render()
     }
 }

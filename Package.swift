@@ -19,7 +19,7 @@ let package = Package(
             dependencies: ["CommandRegistry", "Rainbow", "SudokuKit", "SwiftPM"]),
         .target(
             name: "SudokuKit",
-            dependencies: ["SwiftyTextTable"]),
+            dependencies: ["SwiftyTextTable", "Rainbow"]),
         .testTarget(
             name: "SudokuKitTests",
             dependencies: ["SudokuKit"]),
