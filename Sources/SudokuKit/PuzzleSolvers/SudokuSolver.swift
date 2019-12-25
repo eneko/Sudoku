@@ -6,6 +6,6 @@
 //
 
 public protocol SudokuSolver {
-    init(solution: SudokuSolution)
-    func solve() throws -> SudokuSolution
+    init()
+    func solve(solution: inout SudokuSolution) throws -> Bool
 }

@@ -12,23 +12,27 @@
 /// - Determine if any of its values are possible anywhere else in the same row.
 /// - If not, that value would be the solution for this cell
 public final class RowSolver: SudokuSolver {
-    var solution: SudokuSolution
+//    var solution: SudokuSolution
+//
+//    public init(solution: SudokuSolution) {
+//        self.solution = solution
+//    }
 
-    public init(solution: SudokuSolution) {
-        self.solution = solution
-    }
+    public init() {}
 
-    public func solve() throws -> SudokuSolution {
+    public func solve(solution: inout SudokuSolution) throws -> Bool {
+//    public func solve() throws -> SudokuSolution {
         for value in SudokuSolution.validValues {
-            if let index = findCellIndex(for: value) {
+            if let index = findCellIndex(for: value, in: solution) {
                 print("RowSolver setting \(value) at index \(index)")
                 try solution.setCell(value: value, at: index)
+                return true
             }
         }
-        return solution
+        return false
     }
 
-    func findCellIndex(for value: String) -> Int? {
+    func findCellIndex(for value: String, in solution: SudokuSolution) -> Int? {
         let rows = solution.cells.split(inGroupsOf: solution.columns)
         for (rowIndex, row) in rows.enumerated() {
             if let columnIndex = findColumnIndex(for: value, in: Array(row)) {

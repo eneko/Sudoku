@@ -48,23 +48,38 @@ final class SolveCommand: Command {
     func run(with arguments: ArgumentParser.Result) throws {
         let sudoku = try SudokuPuzzle(cells: Self.medium)
         print("======================================================".blue)
-        print("Loading Sudoku puzzle...")
+        print("Loading Sudoku puzzle...".blue)
         print("======================================================".blue)
         print(sudoku.renderTable())
 
         print("======================================================".blue)
-        print("Setting initial values...")
+        print("Setting initial values...".blue)
         print("======================================================".blue)
         var solution = try SudokuSolution(puzzle: sudoku)
         print(solution.renderTable())
 
         print("======================================================".blue)
-        print("Solving Sudoku puzzle...")
+        print("Solving Sudoku puzzle...".blue)
         print("======================================================".blue)
+        var iteration = 0
         while solution.isIncomplete {
-            solution = try RowSolver(solution: solution).solve()
-            solution = try ColumnSolver(solution: solution).solve()
+            iteration += 1
+            print("Iteration:", "\(iteration)".yellow)
+            if try RowSolver().solve(solution: &solution) {
+                continue
+            }
+            if try ColumnSolver().solve(solution: &solution) {
+                continue
+            }
+            // All solvers failed
+            break
         }
-        print(solution.renderTable())
+        if solution.isIncomplete {
+            print("Unable to solve Sudoku puzzle after \(iteration) iterations".red)
+        }
+        else {
+            print("Solved Sudoku puzzle in \(iteration) iterations ✅".green)
+            print(solution.renderTable())
+        }
     }
 }
