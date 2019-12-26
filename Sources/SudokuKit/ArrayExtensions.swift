@@ -84,3 +84,13 @@ extension Array {
         return copy
     }
 }
+
+extension Sequence where Element: Hashable {
+    public func histogram() -> [Element: Int] {
+        var result: [Element: Int] = [:]
+        for item in self {
+            result[item, default: 0] += 1
+        }
+        return result
+    }
+}

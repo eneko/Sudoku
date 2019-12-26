@@ -12,16 +12,9 @@
 /// - Determine if any of its values are possible anywhere else in the same row.
 /// - If not, that value would be the solution for this cell
 public final class RowSolver: SudokuSolver {
-//    var solution: SudokuSolution
-//
-//    public init(solution: SudokuSolution) {
-//        self.solution = solution
-//    }
-
     public init() {}
 
     public func solve(solution: inout SudokuSolution) throws -> Bool {
-//    public func solve() throws -> SudokuSolution {
         for value in SudokuSolution.validValues {
             if let index = findCellIndex(for: value, in: solution) {
                 print("RowSolver setting \(value) at index \(index)")

@@ -87,4 +87,13 @@ final class ArrayExtensionsTests: XCTestCase {
         XCTAssertEqual(numbers.transposed(), transposed)
     }
 
+    func testHistogram() {
+        let numbers = [1, 2, 3, 4, 5, 2, 3, 4, 5, 3, 4, 5, 4, 5, 5]
+        let histogram = numbers.histogram()
+        XCTAssertEqual(histogram[1], 1)
+        XCTAssertEqual(histogram[2], 2)
+        XCTAssertEqual(histogram[3], 3)
+        XCTAssertEqual(histogram[4], 4)
+        XCTAssertEqual(histogram[5], 5)
+    }
 }
