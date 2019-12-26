@@ -10,7 +10,7 @@ import SudokuKit
 
 final class ArrayExtensionsTests: XCTestCase {
 
-    func testPartitions() {
+    func testSplitInGroups() {
         let numbers = Array(1...10)
         let partitions = numbers.split(inGroupsOf: 3)
         XCTAssertEqual(partitions.count, 4)
@@ -18,6 +18,21 @@ final class ArrayExtensionsTests: XCTestCase {
         XCTAssertEqual(partitions[1], [4,5,6])
         XCTAssertEqual(partitions[2], [7,8,9])
         XCTAssertEqual(partitions[3], [10])
+    }
+
+    func testSliceJoin() {
+        let numbers = Array(1...6)
+        let slices = numbers.split(inGroupsOf: 2)
+        XCTAssertEqual(slices.count, 3)
+        XCTAssertEqual(Array(slices.joined()), numbers)
+        XCTAssertEqual(Array([slices[0], slices[2]].joined()), [1, 2, 5, 6])
+    }
+
+    func testColumns() {
+        let numbers = Array(1...10)
+        let columns = numbers.splitInColumns(columnCount: 5)
+        XCTAssertEqual(columns.count, 5)
+        XCTAssertEqual(Array(columns[0].joined()), [1, 6])
     }
 
     func testTranspose1x1() {

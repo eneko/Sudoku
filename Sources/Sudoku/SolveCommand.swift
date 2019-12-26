@@ -17,6 +17,7 @@ final class SolveCommand: Command {
     let subparser: ArgumentParser
     var subcommands: [Command] = []
 
+    // https://www.websudoku.com/?set_id=7487318393
     static let easy = [
         0, 0, 0, 2, 0, 8, 0, 6, 0,
         0, 0, 5, 0, 0, 7, 8, 1, 0,
@@ -29,7 +30,46 @@ final class SolveCommand: Command {
         0, 4, 0, 5, 0, 2, 0, 0, 0,
     ]
 
+    // https://www.websudoku.com/?set_id=6134848333
     static let medium = [
+        6, 3, 0, 0, 1, 0, 9, 0, 8,
+        8, 0, 9, 0, 0, 3, 0, 1, 0,
+        1, 5, 0, 0, 0, 0, 3, 4, 0,
+        0, 0, 0, 9, 2, 0, 0, 0, 0,
+        9, 0, 0, 0, 0, 0, 0, 0, 3,
+        0, 0 ,0, 0, 3, 5, 0, 0, 0,
+        0, 9, 6, 0, 0, 0, 0, 2, 7,
+        0, 7, 0, 1, 0, 0, 5, 0, 4,
+        3, 0, 4, 0, 5, 0, 0, 6, 9,
+    ]
+
+    // https://www.websudoku.com/?set_id=1157079631
+    static let hard = [
+        0, 0, 0, 3, 0, 0, 0, 8, 0,
+        6, 8, 0, 1, 0, 7, 0, 0, 5,
+        9, 0, 0, 0, 0, 0, 1, 0, 0,
+        4, 0, 0, 0, 6, 1, 0, 0, 0,
+        0, 0, 6, 8, 0, 2, 9, 0, 0,
+        0, 0, 0, 7, 5, 0, 0, 0, 1,
+        0, 0, 7, 0, 0, 0, 0, 0, 2,
+        1, 0, 0, 2, 0, 8, 0, 4, 6,
+        0, 6, 0, 0, 0, 4, 0, 0, 0,
+    ]
+
+    // https://www.websudoku.com/?set_id=17746088
+    static let evil = [
+        0, 0, 0, 0, 6, 0, 0, 9, 0,
+        0, 1, 0, 3, 8, 0, 0, 0, 0,
+        4, 3, 7, 0, 0, 0, 0, 0, 0,
+        8, 0, 0, 0, 0, 0, 4, 0, 0,
+        0, 2, 0, 7, 0, 5, 0, 6, 0,
+        0, 0, 1, 0, 0, 0, 0, 0, 7,
+        0, 0, 0, 0, 0, 0, 5, 3, 6,
+        0, 0, 0, 0, 2, 4, 0, 1, 0,
+        0, 6, 0, 0, 1, 0, 0, 0, 0,
+    ]
+
+    static let medium2 = [
         0, 0, 0, 2, 0, 8, 0, 6, 0,
         0, 0, 5, 0, 0, 7, 0, 1, 0,
         0, 0, 4, 3, 0, 1, 0, 0, 2,
@@ -46,7 +86,7 @@ final class SolveCommand: Command {
     }
 
     func run(with arguments: ArgumentParser.Result) throws {
-        let sudoku = try SudokuPuzzle(cells: Self.medium)
+        let sudoku = try SudokuPuzzle(cells: Self.evil)
         print("======================================================".blue)
         print("Loading Sudoku puzzle...".blue)
         print("======================================================".blue)
