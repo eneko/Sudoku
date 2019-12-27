@@ -5,7 +5,8 @@ let package = Package(
     name: "Sudoku",
     products: [
         .executable(name: "sudoku", targets: ["Sudoku"]),
-        .library(name: "SudokuKit", targets: ["SudokuKit"])
+        .library(name: "SudokuKit", targets: ["SudokuKit"]),
+        .library(name: "Matrix", targets: ["Matrix"]),
     ],
     dependencies: [
         .package(url: "https://github.com/eneko/CommandRegistry", from: "0.0.0"),
@@ -19,9 +20,15 @@ let package = Package(
             dependencies: ["CommandRegistry", "Rainbow", "SudokuKit", "SwiftPM"]),
         .target(
             name: "SudokuKit",
-            dependencies: ["SwiftyTextTable", "Rainbow"]),
+            dependencies: ["SwiftyTextTable", "Rainbow", "Matrix"]),
+        .target(
+            name: "Matrix",
+            dependencies: []),
         .testTarget(
             name: "SudokuKitTests",
             dependencies: ["SudokuKit"]),
+        .testTarget(
+            name: "MatrixTests",
+            dependencies: ["Matrix", "SudokuKit"]),
     ]
 )

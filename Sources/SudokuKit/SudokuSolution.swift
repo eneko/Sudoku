@@ -45,7 +45,7 @@ public struct SudokuSolution {
 
     mutating func setCellsFromPuzzle(puzzle: SudokuPuzzle) throws {
         for index in cellRange {
-            guard let value = puzzle.cells[index] else {
+            guard let value = puzzle.matrix.cells[index] else {
                 continue
             }
             print("Set initial value \(value) at index \(index)")

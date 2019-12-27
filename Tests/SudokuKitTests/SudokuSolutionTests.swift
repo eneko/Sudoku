@@ -16,7 +16,7 @@ final class SudokuSolutionTests: XCTestCase {
     }
 
     func testColumnIndexes() throws {
-        let solution = try SudokuSolution(puzzle: SudokuPuzzle(cells: Sudokus.easy))
+        let solution = try SudokuSolution(puzzle: SudokuPuzzle(integers: PuzzleExamples.easy))
         XCTAssertEqual(solution.column(for: 0), 0)
         XCTAssertEqual(solution.column(for: 37), 1)
         XCTAssertEqual(solution.column(for: 11), 2)
@@ -28,7 +28,7 @@ final class SudokuSolutionTests: XCTestCase {
     }
 
     func testRowIndexes() throws {
-        let solution = try SudokuSolution(puzzle: SudokuPuzzle(cells: Sudokus.easy))
+        let solution = try SudokuSolution(puzzle: SudokuPuzzle(integers: PuzzleExamples.easy))
         XCTAssertEqual(solution.row(for: 12), 1)
         XCTAssertEqual(solution.row(for: 52), 5)
         XCTAssertEqual(solution.row(for: 77), 8)
@@ -41,7 +41,7 @@ final class SudokuSolutionTests: XCTestCase {
     }
 
     func testSquareIndexes() throws {
-        let solution = try SudokuSolution(puzzle: SudokuPuzzle(cells: Sudokus.easy))
+        let solution = try SudokuSolution(puzzle: SudokuPuzzle(integers: PuzzleExamples.easy))
         XCTAssertEqual(solution.square(for: 50).squareColumn, 1)
         XCTAssertEqual(solution.square(for: 50).squareRow, 1)
         XCTAssertEqual(solution.square(for: 0).squareColumn, 0)

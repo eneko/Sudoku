@@ -7,11 +7,6 @@
 
 import Darwin
 
-public struct Size {
-    public let columns: Int
-    public let rows: Int
-}
-
 // MARK: Array extensions
 
 extension Array {
@@ -57,8 +52,6 @@ extension Array {
         }
         return columns
     }
-
-//    public func subMatrix(ofSize: Size,  width: Int, height: Int, )
 
     public mutating func transpose() {
         let side = Int(sqrt(Double(count)))

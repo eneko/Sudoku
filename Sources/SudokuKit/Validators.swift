@@ -6,7 +6,7 @@
 //
 
 extension SudokuPuzzle {
-    public var isComplete: Bool {
-        return cells.contains(nil) == false
-    }
+//    public var isComplete: Bool {
+//        return cells.contains(nil) == false
+//    }
 }

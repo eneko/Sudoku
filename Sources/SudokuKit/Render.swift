@@ -10,7 +10,7 @@ import Rainbow
 
 extension SudokuPuzzle {
     public func values(empty: String = ".") -> [[String]] {
-        return allRows.map { row in
+        return matrix.allRows.map { row in
             return row.map { $0 ?? empty }
         }
     }
