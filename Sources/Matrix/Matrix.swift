@@ -16,14 +16,28 @@ public struct Matrix<T: Collection> {
     }
 
     public init(values: T, columns: Int) {
-        precondition(values.count % columns == 0, "Matrix must be filled")
-        self.cells = Array(values)
+        self.init(array: Array(values).compactMap { $0 }, columns: columns)
+    }
+
+    public init(array: Array<T.Element>, columns: Int) {
+        self.cells = array
         self.columns = columns
-        self.rows = values.count / columns
+        self.rows = cells.count / columns
+        precondition(cells.count % columns == 0, "Matrix must be filled")
     }
 
     public var cellRange: Range<Int> {
         return (0..<cells.count)
+    }
+
+    public func subMatrix(columns: Int, rows: Int, fromCell index: Int) -> Matrix<T> {
+        var values = Array<T.Element>()
+        for row in 0..<rows {
+            let start = index + (row * self.columns)
+            let end = start + columns
+            values.append(contentsOf: (start..<end).map { cells[$0] })
+        }
+        return Matrix(array: values, columns: columns)
     }
 
     public func column(index: Int) -> [T.Element] {
