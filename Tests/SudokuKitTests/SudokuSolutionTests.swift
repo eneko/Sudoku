@@ -12,7 +12,7 @@ final class SudokuSolutionTests: XCTestCase {
 
     func testValues() {
 //        let solution = SudokuSolution(puzzle: SudokuPuzzle(cells: Sudokus.easy))
-        XCTAssertEqual(SudokuSolution.validValues.count, 9)
+        XCTAssertEqual(SudokuSolution.allowedValues.count, 9)
     }
 
     func testColumnIndexes() throws {

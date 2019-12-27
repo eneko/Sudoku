@@ -8,7 +8,7 @@
 import Foundation
 
 public struct SudokuSolution {
-    public static let validValues = (1...9).map(String.init)
+    public static let allowedValues = (1...9).map(String.init)
 
     public let columns: Int
     public let rows: Int
@@ -31,7 +31,7 @@ public struct SudokuSolution {
     public init(puzzle: SudokuPuzzle) throws {
         columns = puzzle.columns
         rows = puzzle.rows
-        cells = cellRange.map { _ in Self.validValues }
+        cells = cellRange.map { _ in Self.allowedValues }
         try setCellsFromPuzzle(puzzle: puzzle)
     }
 

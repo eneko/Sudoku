@@ -12,9 +12,13 @@ public struct SudokuPuzzle {
     public let rows = 9
     public let matrix: Matrix<[String?]>
 
+    public enum Error: Swift.Error {
+        case invalidNumberOfCells
+    }
+
     public init(integers: [Int]) throws {
         guard integers.count == columns * rows else {
-            throw SudokuError.invalidNumberOfCells
+            throw Error.invalidNumberOfCells
         }
         let values = integers.map { value -> String? in
             guard value != 0 else {
@@ -26,8 +30,3 @@ public struct SudokuPuzzle {
     }
 }
 
-public enum SudokuError: Error {
-    case invalidNumberOfCells
-//    case invalidColumn
-//    case invalidRow
-}

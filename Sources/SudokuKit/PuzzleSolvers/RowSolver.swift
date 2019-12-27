@@ -15,7 +15,7 @@ public final class RowSolver: SudokuSolver {
     public init() {}
 
     public func solve(solution: inout SudokuSolution) throws -> Bool {
-        for value in SudokuSolution.validValues {
+        for value in SudokuSolution.allowedValues {
             if let index = findCellIndex(for: value, in: solution) {
                 print("RowSolver setting \(value) at index \(index)")
                 try solution.setCell(value: value, at: index)
