@@ -26,10 +26,10 @@ public final class RowSolver: SudokuSolver {
     }
 
     func findCellIndex(for value: String, in solution: SudokuSolution) -> Int? {
-        let rows = solution.cells.split(inGroupsOf: solution.columns)
+        let rows = solution.matrix.allRows // cells.split(inGroupsOf: solution.columns)
         for (rowIndex, row) in rows.enumerated() {
             if let columnIndex = findColumnIndex(for: value, in: Array(row)) {
-                return rowIndex * solution.columns + columnIndex
+                return rowIndex * solution.matrix.columns + columnIndex
             }
         }
         return nil

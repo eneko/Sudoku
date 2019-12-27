@@ -9,12 +9,21 @@ public struct Matrix<T: Collection> {
     public let columns: Int
     public let rows: Int
 
-    public private(set) var cells: Array<T.Element>
+    public var cells: Array<T.Element> {
+        didSet {
+            precondition(cells.count == columns * rows, "Cannot update number of values")
+        }
+    }
 
     public init(values: T, columns: Int) {
+        precondition(values.count % columns == 0, "Matrix must be filled")
         self.cells = Array(values)
         self.columns = columns
-        self.rows = (columns + values.count - 1) / columns
+        self.rows = values.count / columns
+    }
+
+    public var cellRange: Range<Int> {
+        return (0..<cells.count)
     }
 
     public func column(index: Int) -> [T.Element] {
@@ -41,5 +50,13 @@ public struct Matrix<T: Collection> {
 
     public var allRows: [[T.Element]] {
         return (0..<rows).map { row(index: $0) }
+    }
+
+    public func columnIndex(forCell index: Int) -> Int {
+        return index % columns
+    }
+
+    public func rowIndex(forCell index: Int) -> Int {
+        return index / rows
     }
 }

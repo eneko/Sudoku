@@ -15,14 +15,14 @@ public final class MatchSolver: SudokuSolver {
 
     public func solve(solution: inout SudokuSolution) throws -> Bool {
         var solutionUpdated = false
-        let rows = solution.cells.splitInRows(columnCount: solution.columns)
+        let rows = solution.matrix.allRows// cells.splitInRows(columnCount: solution.columns)
         for (rowIndex, row) in rows.enumerated() {
             let histogram = row.histogram()
             for (values, matchCount) in histogram where matchCount > 1 && values.count == matchCount {
                 let indices = columnIndicesForPurgeableCells(values: values, in: row)
                 //print("Match Solver found match \(key) on row \(rowIndex). Pruneable cells: \(indices)")
                 for columnIndex in indices {
-                    let cellIndex = columnIndex + rowIndex * solution.columns
+                    let cellIndex = columnIndex + rowIndex * solution.matrix.columns
                     try remove(values: values, fromCell: cellIndex, in: &solution)
                     solutionUpdated = true
                 }
@@ -31,7 +31,7 @@ public final class MatchSolver: SudokuSolver {
         return solutionUpdated
     }
 
-    func columnIndicesForPurgeableCells(values: [String], in row: ArraySlice<[String]>) -> [Int] {
+    func columnIndicesForPurgeableCells(values: [String], in row: [[String]]) -> [Int] {
         var result: [Int] = []
         for (columnIndex, cell) in row.enumerated() where cell != values {
             if Set(cell).intersection(values).isEmpty == false {

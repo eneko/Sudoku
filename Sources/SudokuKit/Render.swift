@@ -30,7 +30,7 @@ extension SudokuPuzzle {
 
 extension SudokuSolution {
     public func values(highlight index: Int? = nil) -> [[String]] {
-        let values = cells.enumerated().map { tuple -> String in
+        let values = matrix.cells.enumerated().map { tuple -> String in
             let (cellIndex, item) = tuple
             let value = item.joined()
             guard let index = index else {
@@ -39,16 +39,16 @@ extension SudokuSolution {
             if cellIndex == index {
                 return value.green
             }
-            if cellIndex % columns == index % columns || cellIndex / columns == index / columns {
+            if cellIndex % matrix.columns == index % matrix.columns || cellIndex / matrix.columns == index / matrix.columns {
                 return value.cyan
             }
             return value
         }
-        return values.split(inGroupsOf: columns).map(Array.init)
+        return values.split(inGroupsOf: matrix.columns).map(Array.init)
     }
 
     public func renderTable(highlight index: Int? = nil) -> String {
-        var table = TextTable(columns: (1...columns).map { _ in TextTableColumn(header: "") })
+        var table = TextTable(columns: (1...matrix.columns).map { _ in TextTableColumn(header: "") })
         table.addRows(values: values(highlight: index))
         return table.render()
     }
