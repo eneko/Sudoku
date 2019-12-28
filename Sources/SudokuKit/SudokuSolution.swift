@@ -10,6 +10,7 @@ import Matrix
 
 public struct SudokuSolution {
     public static let allowedValues = (1...9).map(String.init)
+    let squareSide = 3
 
     public private(set) var matrix: Matrix<[[String]]>
 
@@ -27,14 +28,12 @@ public struct SudokuSolution {
         }
     }
 
+    // MARK: Initialization
+
     public init(puzzle: SudokuPuzzle) throws {
         let values = (1...puzzle.columns*puzzle.rows).map { _ in Self.allowedValues }
         matrix = Matrix(values: values, columns: puzzle.columns)
         try setCellsFromPuzzle(puzzle: puzzle)
-    }
-
-    public var isIncomplete: Bool {
-        return matrix.cells.contains(where: { $0.count > 1 })
     }
 
     mutating func setCellsFromPuzzle(puzzle: SudokuPuzzle) throws {
@@ -46,6 +45,12 @@ public struct SudokuSolution {
             try setCell(value: value, at: index)
         }
     }
+
+    public var isIncomplete: Bool {
+        return matrix.cells.contains(where: { $0.count > 1 })
+    }
+
+    // MARK: Value modifiers
 
     mutating func setCell(value: String, at index: Int) throws {
 //        print("BEGIN Set value \(value) at index \(index) [\(column(for: index)),\(row(for: index))]")
@@ -70,7 +75,7 @@ public struct SudokuSolution {
     }
 
     mutating func remove(value: String, fromSquareWithCellIndex index: Int) throws {
-        for cellIndex in matrix.cellRange where cellIndex != index && squareIndices(forCell: cellIndex) == squareIndices(forCell: index) {
+        for cellIndex in matrix.cellRange where cellIndex != index && squareIndex(forCell: cellIndex) == squareIndex(forCell: index) {
             try remove(value: value, fromCell: cellIndex)
         }
     }
@@ -92,9 +97,32 @@ public struct SudokuSolution {
         }
     }
 
-    func squareIndices(forCell index: Int) -> (squareColumn: Int, squareRow: Int) {
-        let squareColumn = (index % matrix.columns) / 3
-        let squareRow = (index / matrix.rows) / 3
-        return (squareColumn: squareColumn, squareRow: squareRow)
+    // MARK: Value fetchers
+
+    var columns: [[[String]]] {
+        return matrix.allColumns
+    }
+
+    var rows: [[[String]]] {
+        return matrix.allRows
+    }
+
+    var squares: [[[String]]] {
+        return (0...8).map {
+            let index = cellIndex(forSquare: $0)
+            return matrix.subMatrix(columns: squareSide, rows: squareSide, fromCell: index).cells
+        }
+    }
+
+    func squareIndex(forCell index: Int) -> Int {
+        let squareColumn = (index % matrix.columns) / squareSide
+        let squareRow = (index / matrix.rows) / squareSide
+        return squareSide * squareRow + squareColumn
+    }
+
+    func cellIndex(forSquare index: Int) -> Int {
+        let row = index / squareSide
+        let column = index % squareSide
+        return squareSide * matrix.columns * row + squareSide * column
     }
 }

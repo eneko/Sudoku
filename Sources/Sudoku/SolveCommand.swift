@@ -37,7 +37,7 @@ final class SolveCommand: Command {
         print("======================================================".blue)
         print("Solving Sudoku puzzle".blue)
         print("======================================================".blue)
-        let solvers: [SudokuSolver] = [RowSolver(), ColumnSolver(), MatchSolver()]
+        let solvers: [SudokuSolver] = [RowSolver(), ColumnSolver(), SquareSolver(), MatchSolver()]
         var iteration = 0
         iterations: while solution.isIncomplete {
             iteration += 1

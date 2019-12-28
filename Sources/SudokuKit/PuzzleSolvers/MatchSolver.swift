@@ -15,7 +15,7 @@ public final class MatchSolver: SudokuSolver {
 
     public func solve(solution: inout SudokuSolution) throws -> Bool {
         var solutionUpdated = false
-        let rows = solution.matrix.allRows// cells.splitInRows(columnCount: solution.columns)
+        let rows = solution.matrix.allRows
         for (rowIndex, row) in rows.enumerated() {
             let histogram = row.histogram()
             for (values, matchCount) in histogram where matchCount > 1 && values.count == matchCount {

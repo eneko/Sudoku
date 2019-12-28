@@ -26,7 +26,7 @@ public final class ColumnSolver: SudokuSolver {
     }
 
     func findCellIndex(for value: String, in solution: SudokuSolution) -> Int? {
-        let columns = solution.matrix.allColumns// cells.transposed().split(inGroupsOf: solution.columns)
+        let columns = solution.matrix.allColumns
         for (columnIndex, column) in columns.enumerated() {
             if let rowIndex = findRowIndex(for: value, in: Array(column)) {
                 return rowIndex * solution.matrix.columns + columnIndex
