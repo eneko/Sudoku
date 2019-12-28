@@ -71,6 +71,19 @@ public struct PuzzleExamples {
         0, 6, 0, 0, 1, 0, 0, 0, 0,
     ]
 
+    // https://www.websudoku.com/?set_id=7364556564
+    public static let evil2 = [
+        1, 0, 0, 0, 0, 4, 0, 8, 0,
+        0, 4, 0, 0, 0, 0, 0, 1, 0,
+        8, 0, 6, 2, 0, 0, 0, 0, 0,
+        0, 0, 0, 5, 2, 0, 7, 0, 0,
+        0, 0, 7, 0, 4, 0, 2, 0, 0,
+        0, 0, 1, 0, 9, 3, 0, 0, 0,
+        0, 0, 0, 0, 0, 2, 5, 0, 3,
+        0, 8, 0, 0, 0, 0, 0, 6, 0,
+        0, 9, 0, 3, 0, 0, 0, 0, 4,
+    ]
+
     // https://www.enekoalonso.com/projects/99-swift-problems/#p97
     public static let ninetyNineProblemsSudoku = [
         0, 0, 4, 8, 0, 0, 0, 1, 7,

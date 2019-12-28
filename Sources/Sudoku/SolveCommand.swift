@@ -22,7 +22,7 @@ final class SolveCommand: Command {
     }
 
     func run(with arguments: ArgumentParser.Result) throws {
-        let sudoku = try SudokuPuzzle(integers: PuzzleExamples.evil)
+        let sudoku = try SudokuPuzzle(integers: PuzzleExamples.evil2)
         print("======================================================".blue)
         print("Loading Sudoku puzzle".blue)
         print("======================================================".blue)
