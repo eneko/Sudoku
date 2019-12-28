@@ -55,10 +55,10 @@ public struct SudokuSolution {
     mutating func setCell(value: String, at index: Int) throws {
 //        print("BEGIN Set value \(value) at index \(index) [\(column(for: index)),\(row(for: index))]")
         matrix.cells[index] = [value]
+        print(renderTable(highlight: index))
         try remove(value: value, fromColumnWithCellIndex: index)
         try remove(value: value, fromRowWithCellIndex: index)
         try remove(value: value, fromSquareWithCellIndex: index)
-        print(renderTable(highlight: index))
 //        print("END Set value \(value) at index \(index) [\(column(for: index)),\(row(for: index))]")
     }
 
@@ -92,7 +92,7 @@ public struct SudokuSolution {
         if matrix.cells[index].count == 1 {
             // Recursively remove candidates when only one value is left
             let value = matrix.cells[index][0]
-            print("Set confirmed cell with value \(value) at index \(index)", matrix.cells[index])
+            print("Set confirmed cell with value \(value) at index \(index)")
             try setCell(value: value, at: index)
         }
     }
@@ -114,6 +114,8 @@ public struct SudokuSolution {
         }
     }
 
+    // MARK: Index calculations
+
     func squareIndex(forCell index: Int) -> Int {
         let squareColumn = (index % matrix.columns) / squareSide
         let squareRow = (index / matrix.rows) / squareSide
@@ -124,5 +126,15 @@ public struct SudokuSolution {
         let row = index / squareSide
         let column = index % squareSide
         return squareSide * matrix.columns * row + squareSide * column
+    }
+
+    func cellIndex(forSquare index: Int, offset: Int) -> Int {
+        let row = offset / squareSide
+        let column = offset % squareSide
+        return cellIndex(forSquare: index) + row * matrix.columns + column
+    }
+
+    func cellIndex(forRow row: Int, column: Int) -> Int {
+        return row * matrix.columns + column
     }
 }

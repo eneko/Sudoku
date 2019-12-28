@@ -10,30 +10,12 @@
 /// - Looks for cells containting the same possible solutions
 /// - If the number of cells matching is equal to the number of possible solutions,
 ///   that indicates those solutions cannot exist anywhere else in the row/column/square
-public final class MatchSolver: SudokuSolver {
-    public init() {}
+protocol MatchSolver: SudokuSolver {}
 
-    public func solve(solution: inout SudokuSolution) throws -> Bool {
-        var solutionUpdated = false
-        let rows = solution.matrix.allRows
-        for (rowIndex, row) in rows.enumerated() {
-            let histogram = row.histogram()
-            for (values, matchCount) in histogram where matchCount > 1 && values.count == matchCount {
-                let indices = columnIndicesForPurgeableCells(values: values, in: row)
-                //print("Match Solver found match \(key) on row \(rowIndex). Pruneable cells: \(indices)")
-                for columnIndex in indices {
-                    let cellIndex = columnIndex + rowIndex * solution.matrix.columns
-                    try remove(values: values, fromCell: cellIndex, in: &solution)
-                    solutionUpdated = true
-                }
-            }
-        }
-        return solutionUpdated
-    }
-
-    func columnIndicesForPurgeableCells(values: [String], in row: [[String]]) -> [Int] {
+extension MatchSolver {
+    func indicesForPurgeableCells(values: [String], in region: [[String]]) -> [Int] {
         var result: [Int] = []
-        for (columnIndex, cell) in row.enumerated() where cell != values {
+        for (columnIndex, cell) in region.enumerated() where cell != values {
             if Set(cell).intersection(values).isEmpty == false {
                 result.append(columnIndex)
             }
@@ -42,7 +24,70 @@ public final class MatchSolver: SudokuSolver {
     }
 
     func remove(values: [String], fromCell index: Int, in solution: inout SudokuSolution) throws {
-        print("Match Solver removing values \(values.joined(separator: ",")) from cell \(index)")
+        print(solution.renderTable(highlight: index, color: .red))
         try values.forEach { try solution.remove(value: $0, fromCell: index) }
+    }
+}
+
+public final class RowMatchSolver: MatchSolver {
+    public init() {}
+
+    public func solve(solution: inout SudokuSolution) throws -> Bool {
+        var solutionUpdated = false
+        for (rowIndex, row) in solution.rows.enumerated() {
+            let histogram = row.histogram()
+            for (values, matchCount) in histogram where matchCount > 1 && values.count == matchCount {
+                let indices = indicesForPurgeableCells(values: values, in: row)
+                for columnIndex in indices {
+                    let cellIndex = columnIndex + rowIndex * solution.matrix.columns
+                    print("RowMatchSolver removing values \(values.joined(separator: ",")) from cell \(cellIndex)")
+                    try remove(values: values, fromCell: cellIndex, in: &solution)
+                    solutionUpdated = true
+                }
+            }
+        }
+        return solutionUpdated
+    }
+}
+
+public final class ColumnMatchSolver: MatchSolver {
+    public init() {}
+
+    public func solve(solution: inout SudokuSolution) throws -> Bool {
+        var solutionUpdated = false
+        for (columnIndex, column) in solution.columns.enumerated() {
+            let histogram = column.histogram()
+            for (values, matchCount) in histogram where matchCount > 1 && values.count == matchCount {
+                let indices = indicesForPurgeableCells(values: values, in: column)
+                for rowIndex in indices {
+                    let cellIndex = columnIndex + rowIndex * solution.matrix.columns
+                    print("ColumnMatchSolver removing values \(values.joined(separator: ",")) from cell \(cellIndex)")
+                    try remove(values: values, fromCell: cellIndex, in: &solution)
+                    solutionUpdated = true
+                }
+            }
+        }
+        return solutionUpdated
+    }
+}
+
+public final class SquareMatchSolver: MatchSolver {
+    public init() {}
+
+    public func solve(solution: inout SudokuSolution) throws -> Bool {
+        var solutionUpdated = false
+        for (squareIndex, square) in solution.squares.enumerated() {
+            let histogram = square.histogram()
+            for (values, matchCount) in histogram where matchCount > 1 && values.count == matchCount {
+                let indices = indicesForPurgeableCells(values: values, in: square)
+                for index in indices {
+                    let cellIndex = solution.cellIndex(forSquare: squareIndex, offset: index)
+                    print("SquareMatchSolver removing values \(values.joined(separator: ",")) from cell \(cellIndex)")
+                    try remove(values: values, fromCell: cellIndex, in: &solution)
+                    solutionUpdated = true
+                }
+            }
+        }
+        return solutionUpdated
     }
 }

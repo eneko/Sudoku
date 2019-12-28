@@ -59,4 +59,17 @@ final class SudokuSolutionTests: XCTestCase {
         XCTAssertEqual(solution.cellIndex(forSquare: 7), 57)
         XCTAssertEqual(solution.cellIndex(forSquare: 8), 60)
     }
+
+    func testCellIndexesForSquareWithOffset() throws {
+        let solution = try SudokuSolution(puzzle: SudokuPuzzle(integers: PuzzleExamples.easy))
+        XCTAssertEqual(solution.cellIndex(forSquare: 0, offset: 8), 20)
+        XCTAssertEqual(solution.cellIndex(forSquare: 1, offset: 8), 23)
+        XCTAssertEqual(solution.cellIndex(forSquare: 2, offset: 8), 26)
+        XCTAssertEqual(solution.cellIndex(forSquare: 3, offset: 8), 47)
+        XCTAssertEqual(solution.cellIndex(forSquare: 4, offset: 8), 50)
+        XCTAssertEqual(solution.cellIndex(forSquare: 5, offset: 8), 53)
+        XCTAssertEqual(solution.cellIndex(forSquare: 6, offset: 8), 74)
+        XCTAssertEqual(solution.cellIndex(forSquare: 7, offset: 8), 77)
+        XCTAssertEqual(solution.cellIndex(forSquare: 8, offset: 8), 80)
+    }
 }

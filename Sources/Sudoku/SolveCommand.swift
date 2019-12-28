@@ -32,12 +32,20 @@ final class SolveCommand: Command {
         print("Setting initial values".blue)
         print("======================================================".blue)
         var solution = try SudokuSolution(puzzle: sudoku)
+        print("Finished loading puzzle:")
         print(solution.renderTable())
 
         print("======================================================".blue)
         print("Solving Sudoku puzzle".blue)
         print("======================================================".blue)
-        let solvers: [SudokuSolver] = [RowSolver(), ColumnSolver(), SquareSolver(), MatchSolver()]
+        let solvers: [SudokuSolver] = [
+            RowSolver(),
+            ColumnSolver(),
+            SquareSolver(),
+            RowMatchSolver(),
+            ColumnMatchSolver(),
+            SquareMatchSolver()
+        ]
         var iteration = 0
         iterations: while solution.isIncomplete {
             iteration += 1
