@@ -31,10 +31,10 @@ extension SudokuPuzzle {
 extension SudokuSolution {
     public func values(highlight index: Int?, color: Color) -> [[String]] {
         let values = matrix.cells.enumerated().map { tuple -> String in
-            let (cellIndex, item) = tuple
-            let value = item.joined()
+            let (cellIndex, cell) = tuple
+            let value = cell.joined()
             guard let index = index else {
-                return value
+                return value.applyingColor(value.count > 1 ? Color.lightBlack : Color.white)
             }
             if cellIndex == index {
                 return value.applyingColor(color)
@@ -42,7 +42,7 @@ extension SudokuSolution {
             if cellIndex % matrix.columns == index % matrix.columns || cellIndex / matrix.columns == index / matrix.columns {
                 return value.cyan
             }
-            return value
+            return value.applyingColor(value.count > 1 ? Color.lightBlack : Color.white)
         }
         return values.split(inGroupsOf: matrix.columns).map(Array.init)
     }
