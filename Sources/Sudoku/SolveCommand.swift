@@ -46,7 +46,7 @@ final class SolveCommand: Command {
             ColumnMatchSolver(),
             SquareMatchSolver(),
             ExclusiveRegionsSolver()
-        ]
+        ].reversed()
         var iteration = 0
         iterations: while solution.isIncomplete {
             iteration += 1
