@@ -1,8 +1,8 @@
 //
-//  SquareSolver.swift
+//  SingleCellSolver.swift
 //  SudokuKit
 //
-//  Created by Eneko Alonso on 12/27/19.
+//  Created by Eneko Alonso on 12/22/19.
 //
 
 /// Single Cell Solver logic:

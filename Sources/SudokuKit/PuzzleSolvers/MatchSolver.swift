@@ -25,7 +25,9 @@ extension MatchSolver {
 
     func remove(values: [String], fromCell index: Int, in solution: inout SudokuSolution) throws {
         print(solution.renderTable(highlight: index, color: .red))
-        try values.forEach { try solution.remove(value: $0, fromCell: index) }
+        for value in values where solution.matrix.cells[index].contains(value) {
+            try solution.remove(value: value, fromCell: index)
+        }
     }
 }
 

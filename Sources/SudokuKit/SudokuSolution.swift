@@ -122,6 +122,14 @@ public struct SudokuSolution {
         return squareSide * squareRow + squareColumn
     }
 
+    func columnIndex(forSquare index: Int) -> Int {
+        return matrix.columnIndex(forCell: cellIndex(forSquare: index))
+    }
+
+    func rowIndex(forSquare index: Int) -> Int {
+        return matrix.rowIndex(forCell: cellIndex(forSquare: index))
+    }
+
     func cellIndex(forSquare index: Int) -> Int {
         let row = index / squareSide
         let column = index % squareSide
@@ -134,7 +142,20 @@ public struct SudokuSolution {
         return cellIndex(forSquare: index) + row * matrix.columns + column
     }
 
+    func cellIndices(forSquare index: Int) -> [Int] {
+        let squareCells = squareSide*squareSide
+        return (0..<squareCells).map { self.cellIndex(forSquare: index, offset: $0)}
+    }
+
     func cellIndex(forRow row: Int, column: Int) -> Int {
         return row * matrix.columns + column
+    }
+
+    func cellIndices(forRow row: Int) -> [Int] {
+        return (0..<matrix.columns).map { self.cellIndex(forRow: row, column: $0) }
+    }
+
+    func cellIndices(forColumn column: Int) -> [Int] {
+        return (0..<matrix.rows).map { self.cellIndex(forRow: $0, column: column) }
     }
 }

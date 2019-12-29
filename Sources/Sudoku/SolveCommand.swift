@@ -44,7 +44,8 @@ final class SolveCommand: Command {
             SquareSolver(),
             RowMatchSolver(),
             ColumnMatchSolver(),
-            SquareMatchSolver()
+            SquareMatchSolver(),
+            ExclusiveRegionsSolver()
         ]
         var iteration = 0
         iterations: while solution.isIncomplete {
