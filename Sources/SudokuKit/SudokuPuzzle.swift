@@ -16,15 +16,14 @@ public struct SudokuPuzzle {
         case invalidNumberOfCells
     }
 
-    public init(integers: [Int]) throws {
-        guard integers.count == columns * rows else {
-            throw Error.invalidNumberOfCells
+    /// Initialize with a list of values.
+    /// - Parameter values: List of string values
+    public init(values: [String]) throws {
+        let values = values.map {
+            SudokuSolution.allowedValues.contains($0) ? $0 : nil
         }
-        let values = integers.map { value -> String? in
-            guard value != 0 else {
-                return nil
-            }
-            return String(value)
+        guard values.count == columns * rows else {
+            throw Error.invalidNumberOfCells
         }
         self.matrix = Matrix(values: values, columns: columns)
     }
