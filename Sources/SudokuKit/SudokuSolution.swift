@@ -31,8 +31,8 @@ public struct SudokuSolution {
     // MARK: Initialization
 
     public init(puzzle: SudokuPuzzle) throws {
-        let values = (1...puzzle.columns*puzzle.rows).map { _ in Self.allowedValues }
-        matrix = Matrix(values: values, columns: puzzle.columns)
+        let values = (1...puzzle.configuration.cellCount).map { _ in Self.allowedValues }
+        matrix = Matrix(values: values, columns: puzzle.configuration.columns)
         try setCellsFromPuzzle(puzzle: puzzle)
     }
 
@@ -46,8 +46,14 @@ public struct SudokuSolution {
         }
     }
 
+    // MARK: Solved Puzzle
+
     public var isIncomplete: Bool {
         return matrix.cells.contains(where: { $0.count > 1 })
+    }
+
+    public var solvedPuzzle: SudokuPuzzle? {
+        return try? SudokuPuzzle(values: matrix.cells.map { $0[0] })
     }
 
     // MARK: Value modifiers

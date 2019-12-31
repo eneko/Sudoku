@@ -47,7 +47,7 @@ final class SolveCommand: Command {
         print("======================================================".blue)
         print("Loading Sudoku puzzle".blue)
         print("======================================================".blue)
-        print(sudoku.renderTable())
+        print(sudoku.renderPretty())
 
         print("======================================================".blue)
         print("Setting initial values".blue)
@@ -84,9 +84,9 @@ final class SolveCommand: Command {
             print("Unable to solve Sudoku puzzle after \(iteration-1) iterations".red)
             print(solution.renderTable())
         }
-        else {
+        else if let puzzle = solution.solvedPuzzle {
             print("Solved Sudoku puzzle in \(iteration) iterations ✅".green)
-            print(solution.renderTable())
+            print(puzzle.renderPretty())
         }
     }
 }

@@ -7,9 +7,21 @@
 
 import Matrix
 
+public struct Configuration {
+    public let columns: Int
+    public let rows: Int
+    public let squareColumns: Int
+    public let squareRows: Int
+    public let allowedValues: [String]
+
+    public var cellCount: Int { columns * rows }
+
+    public static let standard = Configuration(columns: 9, rows: 9, squareColumns: 3, squareRows: 3,
+                                               allowedValues: (1...9).map(String.init))
+}
+
 public struct SudokuPuzzle {
-    public let columns = 9
-    public let rows = 9
+    public let configuration: Configuration = .standard
     public let matrix: Matrix<[String?]>
 
     public enum Error: Swift.Error {
@@ -22,10 +34,10 @@ public struct SudokuPuzzle {
         let values = values.map {
             SudokuSolution.allowedValues.contains($0) ? $0 : nil
         }
-        guard values.count == columns * rows else {
+        guard values.count == configuration.cellCount else {
             throw Error.invalidNumberOfCells
         }
-        self.matrix = Matrix(values: values, columns: columns)
+        self.matrix = Matrix(values: values, columns: configuration.columns)
     }
 }
 

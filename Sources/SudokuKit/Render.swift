@@ -22,9 +22,33 @@ extension SudokuPuzzle {
     }
 
     public func renderTable(empty: String = ".") -> String {
-        var table = TextTable(columns: (1...columns).map { _ in TextTableColumn(header: "") })
+        var table = TextTable(columns: (1...configuration.columns).map { _ in TextTableColumn(header: "") })
         table.addRows(values: values(empty: empty))
         return table.render()
+    }
+
+    public func renderPretty() -> String {
+        var lines: [String] = []
+        var values = matrix.cells
+        for rowIndex in 0..<13 {
+            var row: [String] = []
+            for columnIndex in 0..<25 {
+                if rowIndex % 4 == 0 {
+                    row.append(columnIndex % 8 == 0 ? " " : "-")
+                }
+                else if columnIndex % 8 == 0 {
+                    row.append("|")
+                }
+                else if columnIndex % 2 == 1 {
+                    row.append(" ")
+                }
+                else {
+                    row.append(values.removeFirst() ?? " ")
+                }
+            }
+            lines.append(row.joined())
+        }
+        return lines.joined(separator: "\n")
     }
 }
 
